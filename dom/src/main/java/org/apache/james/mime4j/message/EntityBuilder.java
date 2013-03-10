@@ -43,6 +43,7 @@ import org.apache.james.mime4j.util.ByteSequence;
 class EntityBuilder implements ContentHandler {
 
     private final Entity entity;
+    private MessageImplFactory messageImplFactory;
     private final BodyFactory bodyFactory;
     private final Stack<Object> stack;
 
@@ -50,6 +51,17 @@ class EntityBuilder implements ContentHandler {
             final Entity entity,
             final BodyFactory bodyFactory) {
         this.entity = entity;
+        this.messageImplFactory = new DefaultMessageImplFactory();
+        this.bodyFactory = bodyFactory;
+        this.stack = new Stack<Object>();
+    }
+
+    EntityBuilder(
+            final Entity entity,
+            final MessageImplFactory messageImplFactory,
+            final BodyFactory bodyFactory) {
+        this.entity = entity;
+        this.messageImplFactory = messageImplFactory;
         this.bodyFactory = bodyFactory;
         this.stack = new Stack<Object>();
     }
@@ -70,7 +82,7 @@ class EntityBuilder implements ContentHandler {
             stack.push(this.entity);
         } else {
             expect(Entity.class);
-            Message m = new MessageImpl();
+            Message m = messageImplFactory.messageImpl();
             ((Entity) stack.peek()).setBody(m);
             stack.push(m);
         }
