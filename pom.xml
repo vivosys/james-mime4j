@@ -28,7 +28,7 @@
     </parent>
 
     <artifactId>apache-mime4j-project</artifactId>
-    <version>0.8-SNAPSHOT</version>
+    <version>0.8.0.vivo_3</version>
     <packaging>pom</packaging>
 
     <name>Apache JAMES Mime4j Project</name>
@@ -137,6 +137,7 @@
                                 <!-- Eclipse -->
                                 <exclude>**/.*</exclude>
                                 <exclude>.*/**/*</exclude>
+                                <exclude>VIVO-README.TXT</exclude>
                             </excludes>
                         </configuration>
                     </execution>
